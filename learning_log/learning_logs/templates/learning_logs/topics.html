@@ -1,0 +1,71 @@
+{% extends "learning_logs/base.html" %}
+
+{% load bootstrap4 %}
+
+{% block content %}
+
+<style>
+    /* 使用中国传统的红色、金色和黑色 */
+    .chinese-style-list {
+        background-color: #FFE4E1; /* 淡红色背景 */
+        color: #4B0082; /* 深紫色字体，与淡红色背景形成对比 */
+        font-family: 'KaiTi', sans-serif; /* 使用楷体字体 */
+        border: 2px solid #ffcc00; /* 金色边框 */
+        padding: 30px;
+        text-align: center;
+        margin: 30px 0; /* 上下边距 */
+        width: 60%; /* 限制列表的宽度 */
+        margin-left: auto; /* 使列表居中 */
+        margin-right: auto;
+    }
+
+    .chinese-style-list p.title {
+        font-size: 1.8rem;
+        margin-bottom: 20px; /* 段落间距 */
+    }
+
+    .chinese-style-list li {
+        font-size: 1.5rem;
+        margin-bottom: 15px; /* 列表项间距 */
+    }
+
+    .chinese-style-list a {
+        text-decoration: none;
+        color: #4B0082; /* 深紫色链接 */
+        transition: color 0.3s;
+    }
+
+    .chinese-style-list a:hover {
+        color: #ffcc00; /* 金色悬停效果 */
+    }
+
+    .chinese-style-list a.new-topic {
+        background-color: #FF4500; /* 橙红色按钮 */
+        color: #FFE4E1; /* 淡红色文字 */
+        padding: 10px 20px;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .chinese-style-list a.new-topic:hover {
+        background-color: #FF6347; /* 深一点的橙红色 */
+    }
+</style>
+
+<div class="chinese-style-list">
+    <p class="title">主题</p>
+    <ul>
+        {% for topic in topics %}
+            <li>
+                <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
+            </li>
+        {% empty %}
+            <li>No topics have been added yet.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'learning_logs:new_topic' %}" class="new-topic">添加新主题</a>
+</div>
+
+{% endblock content %}

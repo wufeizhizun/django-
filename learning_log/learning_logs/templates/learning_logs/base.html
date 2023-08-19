@@ -1,0 +1,48 @@
+{% load bootstrap4 %}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>学习日志</title>
+    {% bootstrap_css %}
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">笔记之轨</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'learning_logs:index' %}">学习日志</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'learning_logs:topics' %}">主题</a>
+            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:logout' %}">注销</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:register' %}">注册</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:login' %}">登录</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    {% block content %}{% endblock content %}
+</div>
+
+{% bootstrap_javascript jquery='full' %}
+</body>
+</html>

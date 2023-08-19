@@ -1,0 +1,78 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+
+<style>
+    /* 使用中国传统的红色、金色和黑色 */
+    .chinese-style-topic {
+        background-color: #FFE4E1; /* 淡红色背景 */
+        color: #4B0082; /* 深紫色字体，与淡红色背景形成对比 */
+        font-family: 'KaiTi', sans-serif; /* 使用楷体字体 */
+        border: 2px solid #ffcc00; /* 金色边框 */
+        padding: 30px;
+        text-align: center;
+        margin: 30px 0; /* 上下边距 */
+        width: 60%; /* 限制内容的宽度 */
+        margin-left: auto; /* 使内容居中 */
+        margin-right: auto;
+    }
+
+    .chinese-style-topic p.title {
+        font-size: 2rem;
+        margin-bottom: 20px; /* 段落间距 */
+    }
+
+    .chinese-style-topic li {
+        font-size: 1.3rem;
+        margin-bottom: 20px; /* 列表项间距 */
+    }
+
+    .chinese-style-topic li p.date {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .chinese-style-topic a {
+        text-decoration: none;
+        color: #4B0082; /* 深紫色链接 */
+        transition: color 0.3s;
+    }
+
+    .chinese-style-topic a:hover {
+        color: #ffcc00; /* 金色悬停效果 */
+    }
+
+    .chinese-style-topic a.new-entry {
+        background-color: #FF4500; /* 橙红色按钮 */
+        color: #FFE4E1; /* 淡红色文字 */
+        padding: 10px 20px;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        display: inline-block; /* 使其与其他内容在同一行 */
+        margin-top: 20px;
+    }
+
+    .chinese-style-topic a.new-entry:hover {
+        background-color: #FF6347; /* 深一点的橙红色 */
+    }
+</style>
+
+<div class="chinese-style-topic">
+    <p class="title">主题: {{ topic }}</p>
+    <p>条目:</p>
+    <a href="{% url 'learning_logs:new_entry' topic.id %}" class="new-entry">添加新条目</a>
+    <ul>
+        {% for entry in entries %}
+            <li>
+                <p class="date">{{ entry.date_added|date:"M d, Y H:i" }}</p>
+                <p>{{ entry.text|linebreaks }}</p>
+            </li>
+        {% empty %}
+            <li>该主题尚无条目。</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock content %}
